@@ -1,0 +1,32 @@
+html<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gizmos Retro Education - DOS Game</title>
+    <!-- Load the js-dos player script -->
+    <link rel="stylesheet" href="https://js-dos.com">
+    <script src="https://js-dos.com"></script>
+    <style>
+        html, body, #dosbox {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- The container where the game will display -->
+    <div id="dosbox"></div>
+
+    <script>
+        // Points the emulator to your zip file and tells it what file to run
+        Dos(document.getElementById("dosbox"))
+            .run("game.zip", "ssg.EXE");
+    </script>
+
+</body>
+</html>
