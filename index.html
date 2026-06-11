@@ -26,18 +26,31 @@
         document.getElementById('start-btn').addEventListener('click', () => {
             try {
                 const screen = document.getElementById('screen');
+                screen.innerText = "Initializing Engine Core...\nLoading " + gameLaunchFile;
                 
-                // Clear the screen and show plain success text
-                screen.innerText = "System Virtual Memory Initialized!\nReading file data array...\nTarget execution binary: " + gameLaunchFile;
-                
-                // Read the local file storage string
+                // Unpack your game bytes from memory
                 const binaryString = window.atob(localGameZipData);
-                console.log("Success! Local memory read completed. Size: " + binaryString.length + " bytes.");
+                const len = binaryString.length;
+                const bytes = new Uint8Array(len);
+                for (let i = 0; i < len; i++) {
+                    bytes[i] = binaryString.charCodeAt(i);
+                }
+                
+                // Clear the loader screen and mount the visual game board
+                screen.innerHTML = "<div id='dosbox' style='width:100%;height:100%;'></div>";
+                
+                // Boot the unblocked engine frame
+                Dos(document.getElementById("dosbox")).run(URL.createObjectURL(new Blob([bytes], {type: "application/zip"})), gameLaunchFile);
                 
             } catch (e) {
-                alert("Local engine storage read error: " + e.message);
+                alert("Engine startup error: " + e.message);
             }
         });
     </script>
+    
+    <!-- Self-contained unblocked engine mirror link -->
+    <script src="https://unpkg.com"></script>
+</body>
+</html>
 </body>
 </html>
