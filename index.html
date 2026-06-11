@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gizmos Retro Education - DOS Game</title>
-    <!-- Load js-dos version 8 styling and scripts -->
-    <link rel="stylesheet" href="https://js-dos.com">
-    <script src="https://js-dos.com"></script>
+    
+    <!-- Load stable js-dos files directly from jsDelivr CDN -->
+    <link rel="stylesheet" href="https://jsdelivr.net">
+    <script src="https://jsdelivr.net"></script>
+    
     <style>
         html, body, #dosbox {
             width: 100vw;
@@ -22,15 +24,15 @@
     <div id="dosbox"></div>
 
     <script>
-        // Use the window object to make sure js-dos is fully recognized by the browser
-        const dosInterface = window.Dos || Dos;
-        
-        if (dosInterface) {
-            dosInterface(document.getElementById("dosbox"))
-                .run("./Gizmos.zip", "ssg.EXE");
-        } else {
-            console.error("js-dos failed to initialize properly.");
-        }
+        // Wait a split second to make sure the library is fully active in the browser
+        window.onload = function() {
+            if (typeof Dos !== 'undefined') {
+                Dos(document.getElementById("dosbox"))
+                    .run("./Gizmos.zip", "ssg.EXE");
+            } else {
+                alert("The emulator player script failed to load. Please refresh the page.");
+            }
+        };
     </script>
 
 </body>
